@@ -1887,7 +1887,7 @@ pvd_write(FILE *outfile)
 	struct tm	gmt;
 
 
-	time(&begun);
+	begun = DEFAULT_TIMESTAMP;
 
 	local = *localtime(&begun);
 	gmt = *gmtime(&begun);

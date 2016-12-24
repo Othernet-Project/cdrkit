@@ -783,7 +783,7 @@ generate_reloc_directory()
 	struct directory_entry *s_entry;
 
 	/* Create an  entry for our internal tree */
-	time(&current_time);
+	current_time = DEFAULT_TIMESTAMP;
 	reloc_dir = (struct directory *)
 		e_malloc(sizeof (struct directory));
 	memset(reloc_dir, 0, sizeof (struct directory));
@@ -2680,7 +2680,7 @@ init_fstatbuf()
 	time_t	current_time;
 
 	if (1) {
-		time(&current_time);
+		current_time = DEFAULT_TIMESTAMP;
 		if (rationalize_uid)
 			fstatbuf.st_uid = uid_to_use;
 		else
