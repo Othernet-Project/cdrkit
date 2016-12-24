@@ -216,7 +216,7 @@ insert_boot_cat()
 
 	s_entry->isorec.flags[0] = ISO_FILE;
 	s_entry->priority = 32768;
-	iso9660_date(s_entry->isorec.date, fstatbuf.st_mtime);
+	iso9660_date(s_entry->isorec.date, DEFAULT_TIMESTAMP);
 	s_entry->inode = TABLE_INODE;
 	s_entry->dev = (dev_t) UNCACHED_DEVICE;
 	set_723(s_entry->isorec.volume_sequence_number,

@@ -523,14 +523,14 @@ check_rr_dates(struct directory_entry *dpnt,
 			offset = 5;
 			if (pnt[4] & TF_CREATE) {
 				iso9660_date((char *) time_buf,
-							lstatbuf->st_ctime);
+							DEFAULT_TIMESTAMP);
 				if (memcmp(time_buf, pnt + offset, 7) != 0)
 					same_file = 0;
 				offset += 7;
 			}
 			if (pnt[4] & TF_MODIFY) {
 				iso9660_date((char *) time_buf,
-							lstatbuf->st_mtime);
+							DEFAULT_TIMESTAMP);
 				if (memcmp(time_buf, pnt + offset, 7) != 0)
 					same_file = 0;
 				offset += 7;

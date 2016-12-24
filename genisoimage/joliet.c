@@ -1403,7 +1403,7 @@ jroot_gen()
 	jroot_record.ext_attr_length[0] = 0;
 	set_733((char *) jroot_record.extent, root->jextent);
 	set_733((char *) jroot_record.size, ISO_ROUND_UP(root->jsize));
-	iso9660_date(jroot_record.date, root_statbuf.st_mtime);
+	iso9660_date(jroot_record.date, DEFAULT_TIMESTAMP);
 	jroot_record.flags[0] = ISO_DIRECTORY;
 	jroot_record.file_unit_size[0] = 0;
 	jroot_record.interleave[0] = 0;

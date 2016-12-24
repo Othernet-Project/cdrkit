@@ -671,14 +671,14 @@ generate_xa_rr_attributes(char *whole_name, char *name,
 	flagval |= (1 << 7);
 
 #if defined(__QNX__) && !defined(__QNXNTO__)	/* Not on Neutrino! never OK? */
-	iso9660_date((char *) &Rock[ipnt], lstatbuf->st_ftime);
+	iso9660_date((char *) &Rock[ipnt], DEFAULT_TIMESTAMP);
 	ipnt += 7;
 #endif
-	iso9660_date((char *) &Rock[ipnt], lstatbuf->st_mtime);
+	iso9660_date((char *) &Rock[ipnt], DEFAULT_TIMESTAMP);
 	ipnt += 7;
-	iso9660_date((char *) &Rock[ipnt], lstatbuf->st_atime);
+	iso9660_date((char *) &Rock[ipnt], DEFAULT_TIMESTAMP);
 	ipnt += 7;
-	iso9660_date((char *) &Rock[ipnt], lstatbuf->st_ctime);
+	iso9660_date((char *) &Rock[ipnt], DEFAULT_TIMESTAMP);
 	ipnt += 7;
 
 	/* Add in the Rock Ridge RE (relocated dir) field */

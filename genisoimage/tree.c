@@ -551,7 +551,7 @@ got_valid_name:
 		table->filedir = root;
 		table->isorec.flags[0] = ISO_FILE;
 		table->priority = 32768;
-		iso9660_date(table->isorec.date, fstatbuf.st_mtime);
+		iso9660_date(table->isorec.date, DEFAULT_TIMESTAMP);
 		table->inode = TABLE_INODE;
 		table->dev = (dev_t) UNCACHED_DEVICE;
 		set_723(table->isorec.volume_sequence_number,
@@ -889,7 +889,7 @@ attach_dot_entries(struct directory *dirnode, struct stat *dir_stat,
 		s_entry->isorec.name_len[0] = 1;
 		s_entry->isorec.flags[0] = ISO_DIRECTORY;
 		iso9660_file_length("..", s_entry, 1);
-		iso9660_date(s_entry->isorec.date, fstatbuf.st_mtime);
+		iso9660_date(s_entry->isorec.date, DEFAULT_TIMESTAMP);
 		set_723(s_entry->isorec.volume_sequence_number,
 						volume_sequence_number);
 		set_733(s_entry->isorec.size, SECTOR_SIZE);
@@ -927,7 +927,7 @@ attach_dot_entries(struct directory *dirnode, struct stat *dir_stat,
 		s_entry->isorec.name_len[0] = 1;
 		s_entry->isorec.flags[0] = ISO_DIRECTORY;
 		iso9660_file_length(".", s_entry, 1);
-		iso9660_date(s_entry->isorec.date, fstatbuf.st_mtime);
+		iso9660_date(s_entry->isorec.date, DEFAULT_TIMESTAMP);
 		set_723(s_entry->isorec.volume_sequence_number,
 						volume_sequence_number);
 		set_733(s_entry->isorec.size, SECTOR_SIZE);
@@ -1812,7 +1812,7 @@ insert_file_entry(struct directory *this_dir, char *whole_path,
 	if (s_entry->de_flags & HIDDEN_FILE)
 		s_entry->isorec.flags[0] |= ISO_EXISTENCE;
 	s_entry->isorec.ext_attr_length[0] = 0;
-	iso9660_date(s_entry->isorec.date, statbuf.st_mtime);
+	iso9660_date(s_entry->isorec.date, DEFAULT_TIMESTAMP);
 	s_entry->isorec.file_unit_size[0] = 0;
 	s_entry->isorec.interleave[0] = 0;
 
@@ -1872,13 +1872,13 @@ insert_file_entry(struct directory *this_dir, char *whole_path,
 				 * this will be overwritten - but might as
 				 * well set it here ...
 				 */
-				s_entry->hfs_ent->crdate = lstatbuf.st_ctime;
-				s_entry->hfs_ent->mddate = lstatbuf.st_mtime;
+				s_entry->hfs_ent->crdate = DEFAULT_TIMESTAMP;
+				s_entry->hfs_ent->mddate = DEFAULT_TIMESTAMP;
 			} else {
 				/* set data size */
 				s_entry->hfs_ent->u.file.dsize = lstatbuf.st_size;
-				s_entry->hfs_ent->crdate = lstatbuf.st_ctime;
-				s_entry->hfs_ent->mddate = lstatbuf.st_mtime;
+				s_entry->hfs_ent->crdate = DEFAULT_TIMESTAMP;
+				s_entry->hfs_ent->mddate = DEFAULT_TIMESTAMP;
 			}
 		}
 	}
@@ -2318,7 +2318,7 @@ find_or_create_directory(struct directory *parent,
 			generate_xa_rr_attributes("", (char *) pnt, de,
 				&my_statbuf, &my_statbuf, 0);
 		}
-		iso9660_date(de->isorec.date, fstatbuf.st_mtime);
+		iso9660_date(de->isorec.date, DEFAULT_TIMESTAMP);
 #ifdef APPLE_HYB
 		if (apple_both) {
 			/* give the directory an HFS entry */
@@ -2328,8 +2328,8 @@ find_or_create_directory(struct directory *parent,
 
 			/* fill in the defaults */
 			memset(hfs_ent, 0, sizeof (hfsdirent));
-			hfs_ent->crdate = my_statbuf.st_ctime;
-			hfs_ent->mddate = my_statbuf.st_mtime;
+			hfs_ent->crdate = DEFAULT_TIMESTAMP;
+			hfs_ent->mddate = DEFAULT_TIMESTAMP;
 
 			de->hfs_ent = hfs_ent;
 
@@ -2679,7 +2679,7 @@ init_fstatbuf()
 {
 	time_t	current_time;
 
-	if (fstatbuf.st_ctime == 0) {
+	if (1) {
 		time(&current_time);
 		if (rationalize_uid)
 			fstatbuf.st_uid = uid_to_use;
@@ -2689,8 +2689,8 @@ init_fstatbuf()
 			fstatbuf.st_gid = gid_to_use;
 		else
 			fstatbuf.st_gid = getgid();
-		fstatbuf.st_ctime = current_time;
-		fstatbuf.st_mtime = current_time;
-		fstatbuf.st_atime = current_time;
+		fstatbuf.st_ctime = DEFAULT_TIMESTAMP;
+		fstatbuf.st_mtime = DEFAULT_TIMESTAMP;
+		fstatbuf.st_atime = DEFAULT_TIMESTAMP;
 	}
 }

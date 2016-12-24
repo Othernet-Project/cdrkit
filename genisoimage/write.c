@@ -860,7 +860,7 @@ root_gen()
 	root_record.ext_attr_length[0] = 0;
 	set_733((char *) root_record.extent, root->extent);
 	set_733((char *) root_record.size, ISO_ROUND_UP(root->size));
-	iso9660_date(root_record.date, root_statbuf.st_mtime);
+	iso9660_date(root_record.date, DEFAULT_TIMESTAMP);
 	root_record.flags[0] = ISO_DIRECTORY;
 	root_record.file_unit_size[0] = 0;
 	root_record.interleave[0] = 0;
