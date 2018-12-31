@@ -46,8 +46,8 @@
 #define __sccsid "forked version from cdrkit"
 #define _sccsid "forked version from cdrkit"
 
-/* date -u --date="2017-01-01" +%s */
-#define DEFAULT_TIMESTAMP 1483228800
+/* date -u --date="2019-01-01" +%s */
+#define DEFAULT_TIMESTAMP 1546300800
 
 /*
  * This hack that is needed as long as VMS has no POSIX shell.
